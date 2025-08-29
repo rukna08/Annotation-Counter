@@ -43,6 +43,16 @@ def increment_image_count():
 	money += 3
 	canvas.itemconfig(image_count_text, text=str(image_count))
 	canvas.itemconfig(money_text, text=str(money))
+	save_progress()
+
+
+def decrement_image_count():
+	global image_count, money
+	image_count -= 1
+	money -= 3
+	canvas.itemconfig(image_count_text, text=str(image_count))
+	canvas.itemconfig(money_text, text=str(money))
+	save_progress()
 
 def listen_for_keys():
 	keyboard.add_hotkey('w', increment_image_count)
@@ -81,8 +91,13 @@ def create_window():
 	money_text 	     = canvas.create_text(300, 98, text=str(money),       font="Arial 40 bold", fill="green")
 	money_meta_text  = canvas.create_text(130, 95, text="money: ",  	  font="Arial 40",		fill="green")
 
-	reset_button = tk.Button(root, text="Reset", font="Arial 14 bold", bg="blue", fg="white", command=reset_progress)
+	reset_button = tk.Button(root, text="Reset", font="Arial 14 bold", bg="light blue", fg="black", command=reset_progress, bd=0, highlightthickness=0, activebackground="darkred", activeforeground="white")
 	reset_button.place(x=10, y=150, width=100, height=40)
+	increment_button = tk.Button(root, text="+", font="Arial 20 bold", bg="green", fg="white", command=increment_image_count, bd=0, highlightthickness=0, activebackground="darkred", activeforeground="white")
+	increment_button.place(x=300, y=150, width=40, height=40)
+	decrement_button = tk.Button(root, text="-", font="Arial 20 bold", bg="light blue", fg="black", command=decrement_image_count, bd=0, highlightthickness=0, activebackground="darkred", activeforeground="white")
+	decrement_button.place(x=250, y=150, width=40, height=40)
+
 	#listen_for_keys()
 	listener = mouse.Listener(on_click=on_click)
 	listener.start()
